@@ -1,4 +1,3 @@
-plugins+=(zsh-vi-mode)
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -72,6 +71,7 @@ ZSH_THEME="eastwood"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins+=(git)
+plugins+=(zsh-vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -130,4 +130,5 @@ zle-line-init () {
 
 zle -N zle-line-init
 
-export EDITOR=vim
+export EDITOR=nvim
+alias vim=nvim
