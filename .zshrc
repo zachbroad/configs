@@ -70,10 +70,8 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins+=(git)
-plugins+=(zsh-vi-mode)
+#
 
-source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -83,11 +81,11 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+ if [[ -n $SSH_CONNECTION ]]; then
+   export EDITOR='vim'
+ else
+   export EDITOR='nvim'
+ fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -100,13 +98,19 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-#
-#
 
-set -o vi
-bindkey -M vicmd '^R' history-incremental-search-backward
-bindkey -M viins '^R' history-incremental-search-backward
-export KEYTIMEOUT=1
+# History configurations
+#HISTFILE=~/.zsh_history
+#HISTSIZE=1000
+#SAVEHIST=2000
+#setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
+#setopt hist_ignore_dups       # ignore duplicated commands history list
+#setopt hist_ignore_space      # ignore commands that start with space
+#setopt hist_verify            # show command with history expansion to user before running it
+#setopt share_history         # share command history data
+
+# force zsh to show the complete history
+#alias history="history 0"
 
 # Modal cursor color for vi's insert/normal modes.
 
@@ -131,4 +135,33 @@ zle-line-init () {
 zle -N zle-line-init
 
 export EDITOR=nvim
+
+
+# VIM
+set -o vi
 alias vim=nvim
+bindkey -M vicmd '^R' history-incremental-search-backward
+bindkey -M viins '^R' history-incremental-search-backward
+export KEYTIMEOUT=1
+
+# PLUGINS
+plugins+=(git)
+plugins+=(zsh-vi-mode)
+
+
+# some more ls aliases
+alias ll='ls -l'
+alias la='ls -A'
+alias l='ls -CF'
+
+
+
+
+# ADD ZSH-syntax PLUGIN (MUST BE LAST)
+bindkey '^ ' autosuggest-accept
+plugins+=(zsh-autosuggestions)
+
+plugins+=(zsh-syntax-highlighting)
+
+source $ZSH/oh-my-zsh.sh
+bindkey '^ ' autosuggest-accept
